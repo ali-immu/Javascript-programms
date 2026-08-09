@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Largest Number in Array</title>
+</head>
+<body>
+    <script>
+        const numbers = [7,6,5,56,4,3,2,1,];
+        [a,b,c,...d] = numbers; // Array destructuring to assign the first three elements to a, b, c and the rest to d
+        let larget = Math.max(...numbers);
+        console.log(`The largest number in the array is: ${larget}`);
+        console.log(`The numbers are: ${a}, ${b}, ${c}, and ${d}`);
+    </script>
+</body>
+</html>

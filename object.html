@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <script>
+        // Creating an object
+        const person = {
+            id:1,
+            firstName: "Imran",
+            lastName: "Ali",
+            age: 30,
+            isMarried: false,
+            fullName: function() {
+                return this.firstName + " " + this.lastName;
+            },
+            getId : function() {
+                return this.id;
+            },
+            getFirstname : function() {
+                return this.firstName;
+            }
+        };
+        person.isEmployee = true;
+        if(person.isMarried){
+            console.log("Person Shadishuda hai kate ba");
+        } else {
+            console.log("Person Shadishuda nahi hai");
+        }
+        
+
+        // Accessing object properties
+        console.log(`First Name: ${person.firstName}`);
+        console.log(`Full object: ${JSON.stringify(person)}`);
+        console.log(`Full object: ${JSON.parse(JSON.stringify(person))}`);
+        console.log(`Last Name: ${person.lastName}`);
+        console.log(`Age: ${person.age}`);
+        console.log(`Is Married: ${person.isMarried}`);
+        console.log(`Is Employee: ${person.isEmployee}`);
+        console.log(`Full Name: ${person.fullName()}`);
+        console.log(`ID: ${person.getId()}`);
+        console.log(`First Name: ${person.getFirstname()}`);
+        console.log(Object.keys(person));
+        console.log(Object.values(person));
+        console.log(Object.entries(person));
+        console.log(Object.isFrozen(person));
+        console.log(Object.isSealed(person));
+        console.log(Object.getOwnPropertyNames(person));
+        console.log(Object.getPrototypeOf(person));
+        console.log(Object.getOwnPropertySymbols(person));
+    </script>
+</body>
+</html>

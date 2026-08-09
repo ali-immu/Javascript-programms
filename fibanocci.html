@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci</title>
+</head>
+<body>
+    <script>
+        function fibonacci(n) {
+            if (n <= 0) {
+                return "Input should be a positive integer.";
+            } else if (n === 1) {
+                return 0;
+            } else if (n === 2) {
+                return 1;
+            } else {
+                let a = 0, b = 1, c;
+                for (let i = 3; i <= n; i++) {
+                    c = a + b;
+                    a = b;
+                    b = c;
+                }
+                return b;
+            }
+        }
+
+        // Example usage:
+        const number = 90; // Change this value to compute the Fibonacci number of a different position
+        console.log(`The ${number}th Fibonacci number is: ${fibonacci(number)}`);
+    </script>
+</body>
+</html>

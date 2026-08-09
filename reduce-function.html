@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce function</title>
+</head>
+<body>
+    <script>
+        const numbers = [1, 2, 3, 4, 5];
+
+        // Using reduce to calculate the sum of the array
+        const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+        console.log(`Sum of the array: ${sum}`);
+
+        for(let n of numbers) {
+            n *=2;
+            console.log(n);
+        }
+
+        for(let nu in numbers) {
+            nu *=2;
+            console.log(nu);
+        }
+    </script>
+</body>
+</html>

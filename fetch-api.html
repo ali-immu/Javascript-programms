@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable="Yes">
+    <title>Fetch API</title>
+</head>
+<body>
+    <div id="output" style="font-family:Arial,sans-serif; padding:20px;">Loading...</div>
+    <script>
+        const url = 'https://jsonplaceholder.typicode.com/posts';
+        const output = document.getElementById('output');
+
+        function showMessage(message) {
+            if (output) output.textContent = message;
+        }
+
+        async function getData() {
+            try {
+                showMessage('Loading data...');
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                showMessage(`Loaded ${data.length} items. Check console for details.`);
+            } catch (error) {
+                console.error(error);
+                showMessage(`Fetch failed: ${error.message}`);
+            }
+        }
+
+        getData();
+    </script>
+</body>
+</html>

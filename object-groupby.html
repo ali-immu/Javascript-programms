@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Groupby</title>
+</head>
+
+<body>
+    <script>
+        const inventory = [
+            { name: 'Apple', type: 'fruit' },
+            { name: 'Broccoli', type: 'vegetable' },
+            { name: 'Banana', type: 'fruit' },
+            { name: 'Carrot', type: 'vegetable' },
+            { name: 'Orange', type: 'fruit' },
+            { name: 'Spinach', type: 'vegetable' },
+            { name: 'Grapes', type: 'fruit' }
+        ];
+
+        // Group by the 'type' property
+        const groupedFood = Object.groupBy(inventory, (item) => item.type);
+
+        console.log(groupedFood);
+    </script>
+</body>
+
+</html>

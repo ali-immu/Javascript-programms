@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequency</title>
+</head>
+
+<body>
+    <script>
+        function getFrequency(arr) {
+            const frequency = {};
+
+            for (const num of arr) {
+                // If the number already exists in the object, increment it. 
+                // Otherwise, initialize it to 0 and add 1.
+                frequency[num] = (frequency[num] || 0) + 1;
+            }
+
+            return frequency;
+        }
+
+        const numbers = [1, 2, 2, 3, 3, 3, 4,4,4,4,4,4,4,4,4,4,4,44];
+        console.log(getFrequency(numbers));
+        // Output: { '1': 1, '2': 2, '3': 3, '4': 1 }
+    </script>
+</body>
+
+</html>
