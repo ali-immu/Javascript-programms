@@ -5,9 +5,9 @@ function outerFunction(x) {
     };
 }
 innerFunction = outerFunction(5);
-console.log(innerFunction);
+console.log(innerFunction(0));
 
-console.log(innerFunction(15));
+console.log("line 10 wala",innerFunction(15));
 
 function timer() {
     let count = 0;

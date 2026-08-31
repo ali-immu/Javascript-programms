@@ -15,8 +15,11 @@
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
+            console.log(`Hours : ${hours}`);
             const minutes = String(now.getMinutes()).padStart(2, '0');
+            console.log(`minutes : ${minutes}`);
             const seconds = String(now.getSeconds()).padStart(2, '0');
+            console.log(`seconds : ${seconds}`);
             const timeString = `${hours}:${minutes}:${seconds}`;
             const el = document.getElementById('clock');
             if (el) el.textContent = timeString;

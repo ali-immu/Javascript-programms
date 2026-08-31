@@ -7,7 +7,7 @@ function getpizza() {
     }).then((pizza) => {
         console.log(`Here is your pizza: ${pizza}`);
     }).catch((reject) => {
-        console.error(`Error: ${error}`);
+        console.error(`Error: ${reject}`);
     }).finally(() => {
         console.log("Thank you for your order!");
     });

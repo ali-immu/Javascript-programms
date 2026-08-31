@@ -9,6 +9,8 @@
     <script>
         let string = prompt("Enter a string");
         let stringcount = string.match(/[aeiou]/gi);
+        let stingconsonant = string.match(/[bcdfghjklmnpqrstvwxyz]/gi);
+        console.log(`Number of consonants in the string: ${stingconsonant ? stingconsonant.length : 0}`);
         console.log(`Number of vowels in the string: ${stringcount ? stringcount.length : 0}`);
     </script>
 </body>

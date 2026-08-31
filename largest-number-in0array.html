@@ -9,6 +9,7 @@
     <script>
         const numbers = [7,6,5,56,4,3,2,1,];
         [a,b,c,...d] = numbers; // Array destructuring to assign the first three elements to a, b, c and the rest to d
+        // [...d,a,b,c] = numbers; // It will give error because rest operator should be last parameter
         let larget = Math.max(...numbers);
         console.log(`The largest number in the array is: ${larget}`);
         console.log(`The numbers are: ${a}, ${b}, ${c}, and ${d}`);
