@@ -1,0 +1,70 @@
+Here is the step-by-step guide to setting up Native Federation in Angular 22 from scratch.  This workflow uses browser-native ES Modules and Import Maps (via the official @angular-architects/native-federation package), which delegates directly to Angular 22's build system (@angular/build:application).  Step 1: Create the ApplicationsStart by creating your workspace containing a host (shell) app and at least one remote app.  Bash# 1. Create host application
+ng new host --standalone --routing --style=css
+
+# 2. Create remote application
+ng new remote --standalone --routing --style=css
+Step 2: Install Native FederationRun the schematic in each project. This configures the Native Federation builder in angular.json, sets up federation.config.js, and adjusts entry points.  Bash# In the host project root
+ng add @angular-architects/native-federation --project host --port 4200 --type dynamic-host
+
+# In the remote project root
+ng add @angular-architects/native-federation --project remote --port 4201 --type remote
+Step 3: Configure the Remote ApplicationDeclare what the remote app will expose to the host.  1. Create a Standalone Component to ExposeIn projects/remote/src/app/features/dashboard.component.ts:TypeScriptimport { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  template: `
+    <div style="border: 2px dashed #007acc; padding: 1rem; border-radius: 8px;">
+      <h2>Remote Dashboard (Angular 22)</h2>
+      <p>Counter: {{ count() }}</p>
+      <button (click)="count.set(count() + 1)">Increment</button>
+    </div>
+  `
+})
+export class DashboardComponent {
+  count = signal(0);
+}
+2. Update projects/remote/federation.config.jsExpose the component in exposes:JavaScriptconst { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
+
+module.exports = withNativeFederation({
+  name: 'remote',
+  exposes: {
+    './Dashboard': './src/app/features/dashboard.component.ts',
+  },
+  shared: {
+    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+  },
+});
+Step 4: Configure the Host Application1. Configure the ManifestIn your host application, update public/federation.manifest.json (or src/assets/federation.manifest.json depending on your CLI setup):  JSON{
+  "remote": "http://localhost:4201/remoteEntry.json"
+}
+2. Ensure Async Bootstrapping (main.ts)The schematic should automatically configure your host's src/main.ts to initialize federation before loading Angular. Verify that it matches this pattern:TypeScriptimport { initFederation } from '@angular-architects/native-federation';
+
+initFederation('federation.manifest.json')
+  .catch(err => console.error(err))
+  .then(() => import('./bootstrap'))
+  .catch(err => console.error(err));
+(If src/bootstrap.ts was not created automatically, create it and move your bootstrapApplication(AppComponent, ...) logic into it).3. Setup Routes in Host (app.routes.ts)Use loadComponent and loadRemoteModule to dynamically load the exposed standalone component:TypeScriptimport { Routes } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/native-federation';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      loadRemoteModule({
+        remoteName: 'remote',
+        exposedModule: './Dashboard'
+      }).then(m => m.DashboardComponent)
+  }
+];
+Step 5: Run the ApplicationsStart both applications in separate terminals:Bash# Terminal 1: Remote App
+ng serve remote --port 4201
+
+# Terminal 2: Host App
+ng serve host --port 4200
+Navigate to http://localhost:4200. The Host app will load DashboardComponent from the Remote app at runtime via native ES Modules.

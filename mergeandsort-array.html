@@ -45,7 +45,7 @@
 
     <script>
         function mergeAndSortArrays(...arrays) {
-            const merged = arrays.flat();
+            const merged = arrays.flat(Infinity);
             console.log("merged array : " + merged);
 
             // Sort in descending order
@@ -55,7 +55,7 @@
         const arr1 = [3, 12];
         const arr2 = [5, 1];
         const arr3 = [9, 4, 8];
-        const arr4 = [10, 2, 6, 7];
+        const arr4 = [10, 2, 6,[900,700], 7];
 
         const result1 = mergeAndSortArrays(arr1, arr2);
         const result2 = mergeAndSortArrays(arr1, arr2, arr3, arr4);
