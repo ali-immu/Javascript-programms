@@ -1,7 +1,7 @@
 function firstRepeatingChar(str) {
   for (let i = 0; i < str.length; i++) {
     for (let j = i + 1; j < str.length; j++) {
-      if (str[i] === str[j]) {
+      if (str[i] == str[j]) {
         return `The first repeating character is ${str[i]}`;
       }
     }

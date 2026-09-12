@@ -60,5 +60,9 @@ const memoizedFibonacci = (function() {
 })();
 
 console.log(memoizedFibonacci(40)); // 102334155 (Calculated instantaneously)
+console.log(memoizedFibonacci(40)); 
+console.log("Memoized hua soba ye"+memoizedFibonacci(40)); 
+console.log(memoizedFibonacci(40)); 
+console.log(memoizedFibonacci(40)); 
 console.log(memoizedFibonacci(-1)); // 102334155 (Fetched from cache)
 

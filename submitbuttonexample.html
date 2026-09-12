@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit button</title>
+</head>
+<body>
+    <marquee dir="ltr" onmouseover="this.stop()" onmouseout="this.start()">Submit button example</marquee>
+    <content-editable >Submit button example</content-editable>
+    <form>
+        <input type="text" placeholder="Enter username" id="un"/><br />
+        <input type="password" placeholder="Enter password" id="pwd"/><br />
+        <input type="submit" value="Submit" />
+    </form>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const uname = document.getElementById('un').value;
+            const pwd = document.getElementById('pwd').value;
+            console.log('Username:', uname);
+            console.log('Password:', pwd);
+            event.preventDefault(); // Prevent the default form submission
+            form.submit(); // Programmatically submit the form
+            alert('Form submitted!');
+        });
+        </script>
+</body>
+</html>

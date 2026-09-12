@@ -6,5 +6,6 @@ function slice() {
     console.log("endslices",endslices);
     
     console.log('Sliced Array:', slicedArr);
+    console.log("endslices",endslices);
 }
 slice();
