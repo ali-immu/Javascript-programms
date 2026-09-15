@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTP Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display:grid;
+      place-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    .box {
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>OTP Verification</h2>
+    <p id="otpText">OTP: --</p>
+    <input id="otpInput" type="text" maxlength="6" placeholder="Enter OTP" />
+    <button id="verifyBtn">Verify</button>
+    <p id="message">Generating OTP...</p>
+    <p id="timer">Time remaining: 60 seconds</p>
+  </div>
+
+  <script>
+    let validOtp = "";
+    let timerId = null;
+    let countdownId = null;
+    const otpDurationSeconds = 60;
+    const otpDurationMs = otpDurationSeconds * 1000;
+
+    function startOtpTimer() {
+      clearTimeout(timerId);
+      clearInterval(countdownId);
+      let remainingSeconds = otpDurationSeconds;
+      document.getElementById("timer").textContent = `Time remaining: ${remainingSeconds} seconds`;
+      countdownId = setInterval(() => {
+        remainingSeconds -= 1;
+        if (remainingSeconds > 0) {
+          document.getElementById("timer").textContent = `Time remaining: ${remainingSeconds} seconds`;
+        }
+      }, 1000);
+      timerId = setTimeout(() => {
+        clearInterval(countdownId);
+        document.getElementById("message").textContent = "Invalid OTP! Time expired. New OTP requested.";
+        otp();
+      }, otpDurationMs);
+    }
+
+    function otp() {
+      validOtp = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+      document.getElementById("otpText").textContent = "OTP: " + validOtp;
+      document.getElementById("otpInput").value = "";
+      document.getElementById("message").textContent = "Enter the OTP within 1 minute.";
+      startOtpTimer();
+    }
+
+    function verifyOtp() {
+      const enteredOtp = document.getElementById("otpInput").value.trim();
+
+      if (enteredOtp === validOtp) {
+        clearTimeout(timerId);
+        clearInterval(countdownId);
+        document.getElementById("message").textContent = "OTP is valid.";
+        return;
+      }
+
+      clearTimeout(timerId);
+      clearInterval(countdownId);
+      document.getElementById("message").textContent = "Invalid OTP. Please try again. OTP will refresh after 1 minute if no entry is made.";
+      document.getElementById("otpInput").value = "";
+      startOtpTimer();
+    }
+
+    document.getElementById("verifyBtn").addEventListener("click", verifyOtp, true);
+    document.getElementById("otpInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        verifyOtp();
+      }
+    });
+
+    otp();
+  </script>
+</body>
+</html>
