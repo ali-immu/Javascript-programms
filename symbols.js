@@ -16,5 +16,9 @@ function symbol() {
     console.log(person[age]);
     console.log(status.open);
     console.log(status.closed);
+    console.log(typeof(name));
+    console.log(name.description);
+    
+    
 }
 symbol();
